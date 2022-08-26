@@ -3,16 +3,18 @@ import boto3
 import sys
 import logging
 import psycopg2
+import redshift_connector
+
 
 # logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-config ={'dbname'   : 'database_name',
-         'host'     : 'redshoft_endpoint',
-         'port'     : 'redshift_port',
-         'user'     : 'usr_name',
-         'password' : 'user_password'}
+config ={'dbname'   : 'jjdcamericaanalytics',
+         'host'     : 'capturedev.cvyjwlx4kha5.us-east-1.redshift.amazonaws.com',
+         'port'     : '5439',
+         'user'     : 'jjvcservacct',
+             'password' : 'R!VFctweq2pJ'}
 
 
 s3 = boto3.client('s3')
@@ -21,30 +23,34 @@ s3 = boto3.client('s3')
 def create_conn(*args, **kwargs):
     config = kwargs['config']
     try:
-        conn = psycopg2.connect(dbname=config['dbname'],
+        conn = redshift_connector.connect(database=config['dbname'],
                                 host=config['host'],
-                                port = config['port'],
                                 user = config['user'],
-                                password = config['password'])
+                                password = config['password'],
+                                ssl = True,
+                                port = 5439
+                                )
     except Exception as err:
         print (err.code, err)
     return conn
 
-def lambda_handler(event, context):
-
-    bucket = 'my_project_bucket'
-    key = 'sample_payload.json'
-
-    response = s3.get_object(Bucket=bucket, Key=key)
-    content = response['Body']
-    jsonObject = json.loads(content.read())
-
-    logger.info(jsonObject)
+def main():
+    #
+    # bucket = 'my_project_bucket'
+    # key = 'sample_payload.json'
+    #
+    # response = s3.get_object(Bucket=bucket, Key=key)
+    # content = response['Body']
+    # jsonObject = json.loads(content.read())
+    #
+    # logger.info(jsonObject)
 
     conn = create_conn(config=config)
     cursor = conn.cursor()
-    cursor.execute("""SELECT count(*) FROM Mytable where User_Guid = '{0}' ;""".format(jsonObject['User\'s Object ID']))
+    exit()
+    # cursor.execute("""SELECT * FROM Mytable where User_Guid = '{0}' ;""".format(jsonObject['User\'s Object ID']))
 
+    cursor.execute("""SELECT 1 from dual ;""".format(jsonObject['User\'s Object ID']))
     rows = cursor.fetchall()
 
     for row in rows:
@@ -137,3 +143,7 @@ def lambda_handler(event, context):
             logger.info(f'updated data')
         cursor.close()
         conn.close()
+
+
+if __name__ == '__main__' :
+    main()
