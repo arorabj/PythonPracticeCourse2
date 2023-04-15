@@ -27,5 +27,6 @@ for item in li :
         print(item)
 
 a=(2,3,4)
+
 a=a[2]
 print (a)

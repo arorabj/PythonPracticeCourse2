@@ -36,7 +36,7 @@ print (sampleDict.keys())
 
 
 #get all items
-print (sampleDict.items())
+print (sampleDict.ite   ms())
 sampleDict_tuple= tuple(sampleDict.items())
 for i in sampleDict_tuple:
     k , v = i

@@ -14,7 +14,7 @@ print (computer_parts)
 
 #deleteing item from list
 data = [1,2,100,200,300,500,700,900,901,902,903,904,905,906,907,101,102,103,104,106,109]
-print(len(data))
+print("abd",len(data))
 del data[0:2]
 print (data)
 

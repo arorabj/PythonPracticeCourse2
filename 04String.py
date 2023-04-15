@@ -33,3 +33,5 @@ print (parrot[8 -a])
 #
 # for i in parrot:
 #     print(i)
+
+

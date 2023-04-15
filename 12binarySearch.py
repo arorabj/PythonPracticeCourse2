@@ -10,11 +10,12 @@ guesses = 1
 while True :
     print ("\tGuessing in range of {}. to {}". format(low,high))
     guess = low + (high-low)//2
+    print(guess)
     high_low = input ("My guess is {}. Should I guess higher or lower? "
                       "Enter h, l , or c if my guess is correct "
                       .format(guess)).casefold()
     if high_low == "h":
-        low = guess +1
+        low = guess + 1
     elif high_low == "l":
          high = guess-1
     elif high_low == "c":

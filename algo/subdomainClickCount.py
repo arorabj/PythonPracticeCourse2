@@ -32,3 +32,17 @@ def subdomainVisits(cpdomains):
 
 print (subdomainVisits(["900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"]))
 
+def subdomain_visits(cpdomains):
+    counts = {}
+    for cpdomain in cpdomains:
+        count, domain = cpdomain.split()
+        count = int(count)
+        subdomains = domain.split('.')
+        for i in range(len(subdomains)):
+            subdomain = '.'.join(subdomains[i:])
+            counts[subdomain] = counts.get(subdomain, 0) + count
+    return [str(counts[subdomain]) + ' ' + subdomain for subdomain in counts]
+
+cpdomains = ["900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"]
+result = subdomain_visits(cpdomains)
+print(result)

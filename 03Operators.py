@@ -24,3 +24,12 @@ print ((((a + b) / 3) - 4) * 12)    #12.0
 print (((a + b) / 3 - 4) * 12)      #12.0
 
 print (a / (b * a )/ a)
+
+
+
+print (a + b / 3 - 4 * 12)
+print (a + (b / 3) - (4 * 12))
+print ((((a + b) / 3) - 4) * 12)
+print (((a + b) / 3 - 4) * 12)
+
+print (a / (b * a )/ a)
